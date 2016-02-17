@@ -1,0 +1,4 @@
+E:\APOLLO'sLAB\TestInjector\ITestInjector.Interface\bin\Release\ITestInjector.Interface.dll
+E:\APOLLO'sLAB\TestInjector\ITestInjector.Interface\bin\Release\ITestInjector.Interface.pdb
+E:\APOLLO'sLAB\TestInjector\ITestInjector.Interface\obj\Release\ITestInjector.Interface.dll
+E:\APOLLO'sLAB\TestInjector\ITestInjector.Interface\obj\Release\ITestInjector.Interface.pdb
