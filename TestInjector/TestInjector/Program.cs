@@ -114,8 +114,6 @@ namespace TestInjector
 
             Console.WriteLine("end");
 
-            Console.WriteLine("end-end_end");
-
             Console.ReadLine();
         }
 
