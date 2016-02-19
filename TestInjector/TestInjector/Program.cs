@@ -122,6 +122,8 @@ namespace TestInjector
             Console.WriteLine("end_branch_bug002");
             //test hello
 
+            //test master branch save
+
             Console.ReadLine();
         }
 
