@@ -119,7 +119,7 @@ namespace TestInjector
 
 			//test branch
 
-            Console.WriteLine("end_branch_bug");
+            Console.WriteLine("end_branch_bug002");
 
             Console.ReadLine();
         }
