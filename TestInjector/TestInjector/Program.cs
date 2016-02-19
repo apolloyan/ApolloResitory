@@ -112,9 +112,15 @@ namespace TestInjector
             stopwatch.Stop();
             Console.WriteLine("simpleWithInterceptor:" + stopwatch.ElapsedMilliseconds);
 
-            Console.WriteLine("end");
+            Console.WriteLine("end_branch_fenzhi_2");
+
 
             Console.Write("end_test");
+
+			//test branch
+
+            Console.WriteLine("end_branch_bug002");
+
             Console.ReadLine();
         }
 
