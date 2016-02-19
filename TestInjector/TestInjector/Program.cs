@@ -120,6 +120,7 @@ namespace TestInjector
 			//test branch
 
             Console.WriteLine("end_branch_bug002");
+            //test hello
 
             Console.ReadLine();
         }
