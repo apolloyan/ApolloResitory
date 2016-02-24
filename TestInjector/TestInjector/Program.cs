@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using TestInjector.Implementation;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading;
 
 namespace TestInjector
 {
@@ -29,15 +30,33 @@ namespace TestInjector
         private static ServiceContainer lightContainer { get; set; }
 
         private static ServiceContainer lightContainerWithInterception { get; set; }
+
+        private static string str = string.Empty;
         static void Main(string[] args)
         {
+            //Console.WriteLine(DateTime.Now);
+            ////Thread.Sleep(1000);
+            ////Dosomething().Wait();
+            //dosomething();
+            //Console.WriteLine("console:"+DateTime.Now+DateTime.Now.Millisecond.ToString());
+          
+          
             Stopwatch stopwatch = new Stopwatch();
+            
+
+            Console.WriteLine(DateTime.Now + "." + DateTime.Now.Millisecond.ToString());
             AutofacReg();
+            AutofacRegWithInterceptor();
             SimpleInjectorReg();
             LightInjectorReg();
             LightInjectorRegWithInterception();
-            AutofacRegWithInterceptor();
+
             SimpleInjectorRegWithInterceptor();
+            IDoSomeSimple autofacdoii = simpleContainerWithInterceptor.GetInstance<IDoSomeSimple>();
+            Action<int> dosomeii = (X) => autofacdoii.DoToString(X);
+            Dosomething(dosomeii);
+            Console.WriteLine(DateTime.Now + "." + DateTime.Now.Millisecond.ToString()+str);
+
             stopwatch.Start();
             for (int i = 0; i < COUNT; i++)
             {
@@ -115,7 +134,7 @@ namespace TestInjector
             Console.WriteLine("end_branch_fenzhi_2");
 
 
-            Console.Write("end_test");
+            Console.WriteLine("end_test"+str);
 
 			//test branch
 
@@ -181,6 +200,29 @@ namespace TestInjector
     serviceType => serviceType.Name.EndsWith("Simple"));
             simpleContainerWithInterceptor.RegisterSingleton<MonitoringInterceptor>();
             simpleContainerWithInterceptor.Verify();
+        }
+
+        private static async Task Dosomething(Action<int> action)
+        {
+            int i = 0;
+            await Task.Run(() => 
+            {
+                for (; i < COUNT; i++)
+                {
+                    action.Invoke(i);
+                }
+            });
+            str = ";" + i.ToString();
+        }
+
+        private static void dosomething(Action<int> action)
+        {
+            int i = 0;
+            for (; i < COUNT; i++)
+            {
+                action.Invoke(i);
+            }
+            str = ";" + i.ToString();
         }
 
 
