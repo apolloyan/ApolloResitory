@@ -12,113 +12,131 @@ using System.Threading.Tasks;
 using TestInjector.Implementation;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading;
 
 namespace TestInjector
 {
-    class Program
-    {
-        private const int COUNT = 1000000;
-        private static IContainer AutofacContainer { get; set; }
+	class Program
+	{
+		private const int COUNT = 1000000;
+		private static IContainer AutofacContainer { get; set; }
 
-        private static IContainer AutofacContainerWithInterceptor { get; set; }
+		private static IContainer AutofacContainerWithInterceptor { get; set; }
 
-        private static Container simpleContainer { get; set; }
+		private static Container simpleContainer { get; set; }
 
-        private static Container simpleContainerWithInterceptor { get; set; }
+		private static Container simpleContainerWithInterceptor { get; set; }
 
-        private static ServiceContainer lightContainer { get; set; }
+		private static ServiceContainer lightContainer { get; set; }
 
-        private static ServiceContainer lightContainerWithInterception { get; set; }
-        static void Main(string[] args)
-        {
-            Stopwatch stopwatch = new Stopwatch();
-            AutofacReg();
-            SimpleInjectorReg();
-            LightInjectorReg();
-            LightInjectorRegWithInterception();
-            AutofacRegWithInterceptor();
-            SimpleInjectorRegWithInterceptor();
-            stopwatch.Start();
-            for (int i = 0; i < COUNT; i++)
-            {
-                i.ToString();
-            }
-            stopwatch.Stop();
-            Console.WriteLine(stopwatch.ElapsedMilliseconds);
-            stopwatch.Reset();
-            stopwatch.Restart();
-            for (int i = 0; i < COUNT; i++)
-            {
-                IDoSomeSimple dosome = new DoSomeSimple();
-                dosome.DoToString(i);
-            }
-            stopwatch.Stop();
-            Console.WriteLine(stopwatch.ElapsedMilliseconds);
-            stopwatch.Reset();
-            stopwatch.Restart();
-            for (int i = 0; i < COUNT; i++)
-            {
-                IDoSomeSimple autofacdo = AutofacContainer.Resolve<IDoSomeSimple>();
-                autofacdo.DoToString(i);
-            }
-            stopwatch.Stop();
-            Console.WriteLine("autofac:" + stopwatch.ElapsedMilliseconds);
-            stopwatch.Reset();
-            stopwatch.Restart();
-            for (int i = 0; i < COUNT; i++)
-            {
-                IDoSomeSimple simple = simpleContainer.GetInstance<IDoSomeSimple>();
-                simple.DoToString(i);
-            }
-            stopwatch.Stop();
-            Console.WriteLine("simle:" + stopwatch.ElapsedMilliseconds);
-            stopwatch.Reset();
-            stopwatch.Restart();
-            for (int i = 0; i < COUNT; i++)
-            {
-                IDoSomeSimple light = lightContainer.GetInstance<IDoSomeSimple>();
-                light.DoToString(i);
-            }
-            stopwatch.Stop();
-            Console.WriteLine("light:" + stopwatch.ElapsedMilliseconds);
+		private static ServiceContainer lightContainerWithInterception { get; set; }
 
-            stopwatch.Reset();
-            stopwatch.Restart();
-            for (int i = 0; i < COUNT; i++)
-            {
-                IDoSomeSimple light = lightContainerWithInterception.GetInstance<IDoSomeSimple>();
-                light.DoToString(i);
-            }
-            stopwatch.Stop();
-            Console.WriteLine("lightWithInterception:" + stopwatch.ElapsedMilliseconds);
+		private static string str = string.Empty;
+		static void Main(string[] args)
+		{
+			//Console.WriteLine(DateTime.Now);
+			////Thread.Sleep(1000);
+			////Dosomething().Wait();
+			//dosomething();
+			//Console.WriteLine("console:"+DateTime.Now+DateTime.Now.Millisecond.ToString());
+		  
+		  
+			Stopwatch stopwatch = new Stopwatch();
+			
 
-            stopwatch.Reset();
-            stopwatch.Restart();
-            for (int i = 0; i < COUNT; i++)
-            {
-                IDoSomeSimple auto = AutofacContainerWithInterceptor.Resolve<IDoSomeSimple>();
-                auto.DoToString(i);
-            }
-            stopwatch.Stop();
-            Console.WriteLine("AutofacWithInterceptor:" + stopwatch.ElapsedMilliseconds);
+			Console.WriteLine(DateTime.Now + "." + DateTime.Now.Millisecond.ToString());
+			AutofacReg();
+			AutofacRegWithInterceptor();
+			SimpleInjectorReg();
+			LightInjectorReg();
+			LightInjectorRegWithInterception();
 
-            stopwatch.Reset();
-            stopwatch.Restart();
-            for (int i = 0; i < COUNT; i++)
-            {
-                IDoSomeSimple auto = simpleContainerWithInterceptor.GetInstance<IDoSomeSimple>();
-                auto.DoToString(i);
-            }
-            stopwatch.Stop();
-            Console.WriteLine("simpleWithInterceptor:" + stopwatch.ElapsedMilliseconds);
+			SimpleInjectorRegWithInterceptor();
+			IDoSomeSimple autofacdoii = simpleContainerWithInterceptor.GetInstance<IDoSomeSimple>();
+			Action<int> dosomeii = (X) => autofacdoii.DoToString(X);
+			Dosomething(dosomeii);
+			Console.WriteLine(DateTime.Now + "." + DateTime.Now.Millisecond.ToString()+str);
 
-            Console.WriteLine("end_branch_fenzhi_2");
+			stopwatch.Start();
+			for (int i = 0; i < COUNT; i++)
+			{
+				i.ToString();
+			}
+			stopwatch.Stop();
+			Console.WriteLine(stopwatch.ElapsedMilliseconds);
+			stopwatch.Reset();
+			stopwatch.Restart();
+			for (int i = 0; i < COUNT; i++)
+			{
+				IDoSomeSimple dosome = new DoSomeSimple();
+				dosome.DoToString(i);
+			}
+			stopwatch.Stop();
+			Console.WriteLine(stopwatch.ElapsedMilliseconds);
+			stopwatch.Reset();
+			stopwatch.Restart();
+			for (int i = 0; i < COUNT; i++)
+			{
+				IDoSomeSimple autofacdo = AutofacContainer.Resolve<IDoSomeSimple>();
+				autofacdo.DoToString(i);
+			}
+			stopwatch.Stop();
+			Console.WriteLine("autofac:" + stopwatch.ElapsedMilliseconds);
+			stopwatch.Reset();
+			stopwatch.Restart();
+			for (int i = 0; i < COUNT; i++)
+			{
+				IDoSomeSimple simple = simpleContainer.GetInstance<IDoSomeSimple>();
+				simple.DoToString(i);
+			}
+			stopwatch.Stop();
+			Console.WriteLine("simle:" + stopwatch.ElapsedMilliseconds);
+			stopwatch.Reset();
+			stopwatch.Restart();
+			for (int i = 0; i < COUNT; i++)
+			{
+				IDoSomeSimple light = lightContainer.GetInstance<IDoSomeSimple>();
+				light.DoToString(i);
+			}
+			stopwatch.Stop();
+			Console.WriteLine("light:" + stopwatch.ElapsedMilliseconds);
+
+			stopwatch.Reset();
+			stopwatch.Restart();
+			for (int i = 0; i < COUNT; i++)
+			{
+				IDoSomeSimple light = lightContainerWithInterception.GetInstance<IDoSomeSimple>();
+				light.DoToString(i);
+			}
+			stopwatch.Stop();
+			Console.WriteLine("lightWithInterception:" + stopwatch.ElapsedMilliseconds);
+
+			stopwatch.Reset();
+			stopwatch.Restart();
+			for (int i = 0; i < COUNT; i++)
+			{
+				IDoSomeSimple auto = AutofacContainerWithInterceptor.Resolve<IDoSomeSimple>();
+				auto.DoToString(i);
+			}
+			stopwatch.Stop();
+			Console.WriteLine("AutofacWithInterceptor:" + stopwatch.ElapsedMilliseconds);
+
+			stopwatch.Reset();
+			stopwatch.Restart();
+			for (int i = 0; i < COUNT; i++)
+			{
+				IDoSomeSimple auto = simpleContainerWithInterceptor.GetInstance<IDoSomeSimple>();
+				auto.DoToString(i);
+			}
+			stopwatch.Stop();
+			Console.WriteLine("simpleWithInterceptor:" + stopwatch.ElapsedMilliseconds);
+
+			Console.WriteLine("end_branch_fenzhi_2");
 
 
-            Console.Write("end_test");
+			Console.WriteLine("end_test"+str);
 
 			//test branch
-
             Console.WriteLine("end_branch_bug002");
 
 
@@ -178,5 +196,29 @@ namespace TestInjector
         }
 
 
-    }
+		private static async Task Dosomething(Action<int> action)
+		{
+			int i = 0;
+			await Task.Run(() => 
+			{
+				for (; i < COUNT; i++)
+				{
+					action.Invoke(i);
+				}
+			});
+			str = ";" + i.ToString();
+		}
+
+		private static void dosomething(Action<int> action)
+		{
+			int i = 0;
+			for (; i < COUNT; i++)
+			{
+				action.Invoke(i);
+			}
+			str = ";" + i.ToString();
+		}
+
+
+	}
 }

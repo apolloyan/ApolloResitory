@@ -1,7 +1,0 @@
-E:\APOLLO'sLAB\TestInjector\TestInjector.Implementation\bin\Release\TestInjector.Implementation.dll
-E:\APOLLO'sLAB\TestInjector\TestInjector.Implementation\bin\Release\TestInjector.Implementation.pdb
-E:\APOLLO'sLAB\TestInjector\TestInjector.Implementation\bin\Release\ITestInjector.Interface.dll
-E:\APOLLO'sLAB\TestInjector\TestInjector.Implementation\bin\Release\ITestInjector.Interface.pdb
-E:\APOLLO'sLAB\TestInjector\TestInjector.Implementation\obj\Release\TestInjector.Implementation.csprojResolveAssemblyReference.cache
-E:\APOLLO'sLAB\TestInjector\TestInjector.Implementation\obj\Release\TestInjector.Implementation.dll
-E:\APOLLO'sLAB\TestInjector\TestInjector.Implementation\obj\Release\TestInjector.Implementation.pdb
